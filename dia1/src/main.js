@@ -6,7 +6,8 @@ document.querySelector('[data-js="app"]').innerHTML = `
 `
 
 const link = document.querySelector('[data-js="link"]');
-link.addEventListener('click', () => {
+link.addEventListener('click', (e) => {
+  e.preventDefault();
   const app = document.querySelector('[data-js="app"]'); 
   if (app.getAttribute("style") === "visibility: hidden"){
     app.setAttribute("style", "visibility: visible");
