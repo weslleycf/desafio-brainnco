@@ -13,5 +13,6 @@ const jane = {
 
 
 
+
 console.log('John:', john)
 console.log('Jane:', jane)
