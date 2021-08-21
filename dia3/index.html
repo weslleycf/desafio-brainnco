@@ -8,10 +8,60 @@
   </head>
   <body>
     <form data-js="form">
+      
       <label for="name">Nome:</label>
       <input size="50" type="text" name="name" data-js="name">
+      
+    </form> 
+    <br>
+    <br>
+    <div class="cars">
+    <form data-js="cars-form">
 
+      <div>
+      <label for="image">Imagem url: </label>
+        <input type="text" name="image" >
+      </div>
+
+      <div>
+      <label for="brand-model">Marca/Modelo:</label>
+        <input type="text" name="brand-model" >
+      </div>
+
+      <div>
+      <label for="year">Ano:</label>
+        <input type="text" name="year" >
+      </div>
+
+      <div>
+      <label for="plate">Placa:</label>
+        <input type="text" name="plate" >
+      </div>
+
+      <div>
+      <label for="color"> Cor:</label>
+        <input type="color" name="color" >
+      </div>
+
+      <button type="submit" data-js="submit-car">Adicionar </button>
+    
     </form>
+  </div>
+    <table border="1">
+      <thead>
+        <tr>
+          <td>Imagem</td>
+          <td>Marca/Modelo</td>
+          <td>Ano</td>
+          <td>Placa</td>
+          <td>Cor</td>
+        </tr>
+      </thead>
+      <tbody data-js="table">
+
+      </tbody>
+    </table>
+
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
