@@ -5,6 +5,14 @@ const data = {};
 const url = 'http://localhost:3333/cars';
 const responseData = [];
 
+function showError(msg){
+    const error = document.createElement('span');
+    error.className = 'error';
+    error.textContent = `${msg}`;
+    form.appendChild(error);
+}
+
+
 const errorMsgRow = (msg) =>{
     table.innerHTML = '';
     const tr = document.createElement('tr');
@@ -19,6 +27,9 @@ const errorMsgRow = (msg) =>{
 
 form.addEventListener('submit', async (e) =>{
     e.preventDefault();
+    if (document.querySelector('.error')){
+        document.querySelector('.error').remove();
+    }
     if (document.querySelector('[data-js="error-row"')){
         document.querySelector('[data-js="error-row"').remove();
     }
@@ -27,6 +38,20 @@ form.addEventListener('submit', async (e) =>{
        data[elementName] = e.target.elements[elementName].value
     })
 
+
+    const result = await fetch(url, {
+        method: 'POST',
+        headers:{
+            'content-type':'application/json',
+        }, body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .catch(e => ({error:true, message: e.message}))
+
+    if (result.error){
+        showError(result.message);
+        return
+    }
         createRow(data);
        
         form.reset();
@@ -66,5 +91,8 @@ async function main(){
    })}
 
 }
+
+
+
  
 main();

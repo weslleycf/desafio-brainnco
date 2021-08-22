@@ -15,3 +15,11 @@ table{
 input, button {
   margin: 10px
 }
+
+
+.error{
+display: block;
+padding: 5px;
+background-color: #fceeeb;
+color: #db330f
+}
