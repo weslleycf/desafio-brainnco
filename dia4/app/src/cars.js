@@ -23,6 +23,8 @@ const errorMsgRow = (msg) =>{
     tr.appendChild(td);
     table.appendChild(tr);
 }   
+
+
     
 
 form.addEventListener('submit', async (e) =>{
@@ -56,6 +58,7 @@ form.addEventListener('submit', async (e) =>{
        
         form.reset();
         e.target.elements['image'].focus();   
+        
     }
 )
 
@@ -69,10 +72,49 @@ function createRow(data){
             tr.appendChild(td);
         
     }
-    table.appendChild(tr)
+    const deleteButton = document.createElement('button');
+    deleteButton.setAttribute('data-js','delete-car');
+    deleteButton.setAttribute('onclick','deleteCar()');
+    deleteButton.dataset.plate = data['plate'];
+    deleteButton.innerText = 'Excluir';
+    deleteButton.addEventListener('click', handleDelete);
+    const del = document.createElement('td');
+    del.appendChild(deleteButton);
+    tr.appendChild(del);
+    tr.dataset.plate = data['plate'];
+    table.appendChild(tr);
+       
+    
 }
 
-  
+async function handleDelete(e){
+    const button = e.target
+    const plate = e.target.dataset.plate;
+    const tr = document.querySelector(`tr[data-plate="${plate}"]`);
+    const result = await fetch(url, {
+        method: 'DELETE',
+        headers:{
+            'content-type':'application/json',
+        }, body: JSON.stringify({'plate': plate} )
+    })
+    .then(response => response.json())
+    .catch(e => ({error:true, message: e.message}))
+
+    if (result.error){
+        showError(result.message);
+        return
+    }
+
+
+    table.removeChild(tr);  
+    button.removeEventListener('click', handleDelete)
+    main();
+
+}
+
+
+
+
 async function main(){
     const result = await fetch(url)
     .then(response => response.json())
